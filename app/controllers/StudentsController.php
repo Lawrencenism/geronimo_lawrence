@@ -26,7 +26,7 @@ class StudentsController extends Controller {
         ];
 
         if ($this->StudentsModel->insert($data)) {
-            header("Location: /LAVACRUD/students/index");
+            header("Location: /students/index");
             exit;
         } else {
             echo "Failed to insert student.";
@@ -50,7 +50,7 @@ class StudentsController extends Controller {
         ];
 
         if ($this->StudentsModel->update($id, $data)) {
-            header("Location: /LAVACRUD/students/index");
+            header("Location: /students/index");
             exit;
         } else {
             echo "Failed to update student.";
@@ -61,7 +61,7 @@ class StudentsController extends Controller {
     public function delete($id): void
     {
         if ($this->StudentsModel->delete($id)) {
-            header("Location: /LAVACRUD/students/index");
+            header("Location: /students/index");
             exit;
         } else {
             echo "Failed to delete student.";

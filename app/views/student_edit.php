@@ -66,7 +66,7 @@
 <body>
     <h1>✏ Edit Student</h1>
 
-    <form action="/LAVACRUD/students/update/<?= $student['id'] ?>" method="POST">
+    <form action="/students/update/<?= $student['id'] ?>" method="POST">
         <input type="text" name="lastname" placeholder="Last Name" value="<?= htmlspecialchars($student['lastname']) ?>" required>
         <br>
         <input type="text" name="firstname" placeholder="First Name" value="<?= htmlspecialchars($student['firstname']) ?>" required>
@@ -77,6 +77,6 @@
     </form>
 
     <br>
-    <a href="/LAVACRUD/students/index" class="back">⬅ Back to List</a>
+    <a href="/students/index" class="back">⬅ Back to List</a>
 </body>
 </html>

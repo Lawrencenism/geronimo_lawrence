@@ -96,7 +96,7 @@
 
     <!-- Add Student Form -->
     <div class="form-container" id="addForm">
-        <form action="/LAVACRUD/students/create" method="POST">
+        <form action="/students/create" method="POST">
             <input type="text" name="lastname" placeholder="Last Name" required><br>
             <input type="text" name="firstname" placeholder="First Name" required><br>
             <input type="email" name="email" placeholder="Email" required><br>
@@ -124,8 +124,8 @@
                         <td><?= htmlspecialchars($student['firstname']) ?></td>
                         <td><?= htmlspecialchars($student['email']) ?></td>
                         <td>
-                            <a href="/LAVACRUD/students/edit/<?= $student['id'] ?>">✏ Edit</a> | 
-                            <a href="/LAVACRUD/students/delete/<?= $student['id'] ?>" onclick="return confirm('Are you sure you want to delete this student?');">🗑 Delete</a>
+                            <a href="/students/edit/<?= $student['id'] ?>">✏ Edit</a> | 
+                            <a href="/students/delete/<?= $student['id'] ?>" onclick="return confirm('Are you sure you want to delete this student?');">🗑 Delete</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
