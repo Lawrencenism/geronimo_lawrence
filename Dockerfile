@@ -1,15 +1,15 @@
 FROM php:8.2-apache
 
-# Install PDO MySQL
+# Install PDO MySQL extension
 RUN docker-php-ext-install pdo pdo_mysql
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
 
-# Allow .htaccess overrides
+# Allow .htaccess overrides (needed for pretty routes)
 RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 
-# Copy app files
+# Copy app files into Apache's web root
 COPY . /var/www/html/
 
 # Fix permissions
