@@ -156,7 +156,7 @@ function &lava_instance()
 $performance->stop('lavalust');
 
 // Handle the request
-$url = $router->sanitize_url(str_replace($_SERVER['SCRIPT_NAME'], '', $_SERVER['PHP_SELF']));
+$url = $router->sanitize_url(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 $method = isset($_SERVER['REQUEST_METHOD']) ? strtoupper($_SERVER['REQUEST_METHOD']) : '';
 $router->initiate($url, $method);
 ?>
