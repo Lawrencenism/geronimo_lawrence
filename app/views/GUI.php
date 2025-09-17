@@ -91,12 +91,6 @@
 <body>
     <h1>👾 Students List</h1>
 
-    <!-- Search Form -->
-    <form action="/students/index" method="GET" style="margin: 20px auto; text-align: center;">
-        <input type="text" name="search" value="<?= htmlspecialchars($search ?? '') ?>" placeholder="Search by lastname, firstname, or email" style="font-family: inherit; padding: 8px; margin: 10px; border: 2px solid #ffcc00; background: #111; color: #00ffcc; width: 300px; text-align: center;">
-        <button type="submit" style="font-family: inherit; background: #ff0066; color: #fff; padding: 10px 15px; border: none; cursor: pointer;">🔍 Search</button>
-    </form>
-
     <!-- Toggle button -->
     <button class="toggle-btn" onclick="toggleForm()">➕ Add Student ▼</button>
 
@@ -140,11 +134,6 @@
             <?php endif; ?>
         </tbody>
     </table>
-
-    <!-- Pagination Links -->
-    <div style="margin: 20px auto; text-align: center;">
-        <?= $pagination ?? '' ?>
-    </div>
 
     <script>
         function toggleForm() {

@@ -12,22 +12,8 @@ class StudentsController extends Controller {
     // List students
     public function index(): void
     {
-        $this->call->library('Pagination');
-        $search = $this->io->get('search') ?? '';
-        $page = (int)($this->io->get('page') ?? 1);
-        $rows_per_page = 10;
-        $total = $this->StudentsModel->getTotal($search);
-        $delimiter = empty($search) ? '?page=' : '&page=';
-        $this->pagination->set_options(['page_delimiter' => $delimiter]);
-        $base_url = 'students/index';
-        if (!empty($search)) {
-            $base_url .= '?search=' . urlencode($search);
-        }
-        $this->pagination->initialize($total, $rows_per_page, $page, $base_url);
-        $offset = ($page - 1) * $rows_per_page;
-        $students = $this->StudentsModel->getStudents($search, $rows_per_page, $offset);
-        $pagination_html = $this->pagination->paginate();
-        $this->call->view('GUI', ['students' => $students, 'pagination' => $pagination_html, 'search' => $search]);
+        $students = $this->StudentsModel->getAll();
+        $this->call->view('GUI', ['students' => $students]);
     }
 
     // Save student
