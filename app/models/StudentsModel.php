@@ -9,42 +9,6 @@ class StudentsModel extends Model {
         return $this->db->table('students')->get_all();
     }
 
-    // Get students with pagination and search
-    public function getAllWithPagination($search = null, $limit = null, $offset = null)
-    {
-        $query = $this->db->table('students');
-
-        if ($search) {
-            $query->group_start()
-                  ->like('lastname', $search)
-                  ->or_like('firstname', $search)
-                  ->or_like('email', $search)
-                  ->group_end();
-        }
-
-        if ($limit !== null && $offset !== null) {
-            $query->limit($limit, $offset);
-        }
-
-        return $query->get_all();
-    }
-
-    // Get total count of students with search filter
-    public function countAll($search = null)
-    {
-        $query = $this->db->table('students');
-
-        if ($search) {
-            $query->group_start()
-                  ->like('lastname', $search)
-                  ->or_like('firstname', $search)
-                  ->or_like('email', $search)
-                  ->group_end();
-        }
-
-        return $query->count_all_results();
-    }
-
     // Get student by ID
     public function getById($id)
     {

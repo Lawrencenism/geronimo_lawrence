@@ -7,28 +7,13 @@ class StudentsController extends Controller {
         parent::__construct();
         $this->call->database();
         $this->call->model('StudentsModel'); // $this->StudentsModel
-        $this->call->library('Pagination');
     }
 
     // List students
     public function index(): void
     {
-        $search = $this->io->get('search') ?? '';
-        $page = (int) ($this->io->get('page') ?? 1);
-        $per_page = 10; // Rows per page
-
-        $total_rows = $this->StudentsModel->countAll($search);
-        $pagination_data = $this->pagination->initialize($total_rows, $per_page, $page, 'students/index', 5);
-
-        $students = $this->StudentsModel->getAllWithPagination($search, $per_page, ($page - 1) * $per_page);
-
-        $pagination_html = $this->pagination->paginate();
-
-        $this->call->view('GUI', [
-            'students' => $students,
-            'pagination' => $pagination_html,
-            'search' => $search
-        ]);
+        $students = $this->StudentsModel->getAll();
+        $this->call->view('GUI', ['students' => $students]);
     }
 
     // Save student
