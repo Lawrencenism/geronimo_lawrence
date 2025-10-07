@@ -7,8 +7,8 @@ class UserModel extends Model {
     public function register($data)
     {
         // Hash the password
-        $data['password'] = md5($data['password']);
-        $data['role'] = $this->countUsers() == 0 ? 'admin' : 'user';
+        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        $data['role'] = 'user';
 
         $result = $this->db->table('users')->insert($data);
         if ($result) {
@@ -40,6 +40,24 @@ class UserModel extends Model {
     public function getUserByEmail($email)
     {
         return $this->db->table('users')->where('email', $email)->get();
+    }
+
+    // Get user by id
+    public function getUserById($id)
+    {
+        return $this->db->table('users')->where('id', $id)->get();
+    }
+
+    // Update user
+    public function update($id, $data)
+    {
+        return $this->db->table('users')->where('id', $id)->update($data);
+    }
+
+    // Delete user
+    public function delete($id)
+    {
+        return $this->db->table('users')->where('id', $id)->delete();
     }
 
     // Get users with pagination and search

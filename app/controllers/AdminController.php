@@ -70,7 +70,7 @@ class AdminController extends Controller {
 
         $password = $this->io->post('password');
         if (!empty($password)) {
-            $data['password'] = md5($password);
+            $data['password'] = password_hash($password, PASSWORD_DEFAULT);
         }
 
         if ($this->UserModel->update($id, $data)) {
