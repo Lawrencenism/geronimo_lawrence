@@ -105,8 +105,8 @@ $config['index_page']               = 'index.php';
 |   3 = All
 |
 */
-$config['log_threshold']            = 0;
-$config['log_dir']                  = 'runtime/logs/';
+$config['log_threshold']            = 3;
+$config['log_dir']                  = '/tmp/';
 
 /*
 |--------------------------------------------------------------------------
@@ -249,7 +249,7 @@ $config['cookie_samesite']         = 'Lax';
 |
 |--------------------------------------------------------------------------
 */
-$config['cache_dir']               = 'runtime/cache/';
+$config['cache_dir']               = '/tmp/';
 $config['cache_default_expires']   = 0;
 
 /*
