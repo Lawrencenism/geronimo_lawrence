@@ -81,22 +81,4 @@ class UserModel extends Model {
         }
         return $this->db->count();
     }
-
-    // Get user by ID
-    public function getUserById($id)
-    {
-        return $this->db->table('users')->where('id', $id)->get();
-    }
-
-    // Update user
-    public function update($id, $data)
-    {
-        return $this->db->table('users')->where('id', $id)->update($data);
-    }
-
-    // Delete user
-    public function delete($id)
-    {
-        return $this->db->table('users')->where('id', $id)->delete();
-    }
 }
