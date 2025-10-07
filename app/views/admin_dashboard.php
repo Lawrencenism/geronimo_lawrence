@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Students List - Pixel Theme</title>
+    <title>Admin Dashboard - Users List</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
     <style>
@@ -34,15 +34,6 @@
         td {
             background: #111;
         }
-        .form-container {
-            margin: 20px auto;
-            display: none;
-            background: #222;
-            padding: 20px;
-            border: 3px solid #00ffcc;
-            border-radius: 8px;
-            width: 400px;
-        }
         input {
             font-family: inherit;
             padding: 8px;
@@ -66,18 +57,6 @@
         button:hover {
             background: #ffcc00;
             color: #000;
-        }
-        .toggle-btn {
-            display: inline-block;
-            background: #00ffcc;
-            color: #000;
-            padding: 10px 20px;
-            cursor: pointer;
-            border: none;
-            margin: 15px;
-        }
-        .toggle-btn:hover {
-            background: #ffcc00;
         }
         a {
             color: #ffcc00;
@@ -109,16 +88,16 @@
     </style>
 </head>
 <body>
-    <h1>👾 Students List</h1>
+    <h1>👑 Admin Dashboard - Users List</h1>
 
-    <p style="color: #00ffcc;">Welcome, <?= htmlspecialchars($user_email ?? 'User') ?> | <a href="/auth/logout">Logout</a></p>
+    <p style="color: #00ffcc;">Welcome, <?= htmlspecialchars($user_email ?? 'Admin') ?> | <a href="/auth/logout">Logout</a> | <a href="/students/index">Students</a></p>
 
     <!-- Search Form -->
-    <form action="/students/index" method="GET" style="margin: 20px 0;">
-        <input type="text" name="search" placeholder="Search by name or email" value="<?= htmlspecialchars($search ?? '') ?>">
+    <form action="/admin/index" method="GET" style="margin: 20px 0;">
+        <input type="text" name="search" placeholder="Search by email" value="<?= htmlspecialchars($search ?? '') ?>">
         <button type="submit">🔍 Search</button>
         <?php if (!empty($search)): ?>
-            <a href="/students/index" style="margin-left: 10px;">Clear Search</a>
+            <a href="/admin/index" style="margin-left: 10px;">Clear Search</a>
         <?php endif; ?>
     </form>
 
@@ -130,51 +109,38 @@
     <!-- Pagination Info -->
     <?php if ($totalRecords > 0): ?>
         <p style="color: #00ffcc;">
-            Showing <?= count($students) ?> of <?= $totalRecords ?> students
+            Showing <?= count($users) ?> of <?= $totalRecords ?> users
             (Page <?= $currentPage ?> of <?= $totalPages ?>)
         </p>
     <?php endif; ?>
 
-    <!-- Toggle button -->
-    <button class="toggle-btn" onclick="toggleForm()">➕ Add Student ▼</button>
-
-    <!-- Add Student Form -->
-    <div class="form-container" id="addForm">
-        <form action="/students/create" method="POST">
-            <input type="text" name="lastname" placeholder="Last Name" required><br>
-            <input type="text" name="firstname" placeholder="First Name" required><br>
-            <input type="email" name="email" placeholder="Email" required><br>
-            <button type="submit">Save Student</button>
-        </form>
-    </div>
-
-    <!-- Students Table -->
+    <!-- Users Table -->
     <table>
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Lastname</th>
-                <th>Firstname</th>
                 <th>Email</th>
+                <th>Password</th>
+                <th>Role</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <?php if (!empty($students)): ?>
-                <?php foreach ($students as $student): ?>
+            <?php if (!empty($users)): ?>
+                <?php foreach ($users as $user): ?>
                     <tr>
-                        <td><?= htmlspecialchars($student['id']) ?></td>
-                        <td><?= htmlspecialchars($student['lastname']) ?></td>
-                        <td><?= htmlspecialchars($student['firstname']) ?></td>
-                        <td><?= htmlspecialchars($student['email']) ?></td>
+                        <td><?= htmlspecialchars($user['id']) ?></td>
+                        <td><?= htmlspecialchars($user['email']) ?></td>
+                        <td>***</td>
+                        <td><?= htmlspecialchars($user['role']) ?></td>
                         <td>
-                            <a href="/students/edit/<?= $student['id'] ?>">✏ Edit</a> | 
-                            <a href="/students/delete/<?= $student['id'] ?>" onclick="return confirm('Are you sure you want to delete this student?');">🗑 Delete</a>
+                            <a href="/admin/edit/<?= $user['id'] ?>">✏ Edit</a> |
+                            <a href="/admin/delete/<?= $user['id'] ?>" onclick="return confirm('Are you sure you want to delete this user?');">🗑 Delete</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
-                <tr><td colspan="5">No students found.</td></tr>
+                <tr><td colspan="5">No users found.</td></tr>
             <?php endif; ?>
         </tbody>
     </table>
@@ -183,19 +149,5 @@
     <?php if (!empty($pagination)): ?>
         <?= $pagination ?>
     <?php endif; ?>
-
-    <script>
-        function toggleForm() {
-            const form = document.getElementById("addForm");
-            const btn = document.querySelector(".toggle-btn");
-            if (form.style.display === "none" || form.style.display === "") {
-                form.style.display = "block";
-                btn.innerHTML = "➖ Hide Form ▲";
-            } else {
-                form.style.display = "none";
-                btn.innerHTML = "➕ Add Student ▼";
-            }
-        }
-    </script>
 </body>
 </html>

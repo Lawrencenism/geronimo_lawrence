@@ -347,7 +347,10 @@ class Database {
      */
     public function count()
     {
-        return $this->raw("SELECT COUNT(*) AS count FROM {$this->table}" . $this->where)->fetch()['count'];
+        $query = "SELECT COUNT(*) AS count FROM {$this->table}" . $this->where;
+        $stmt = $this->db->prepare($query);
+        $stmt->execute($this->bindValues);
+        return $stmt->fetch()['count'];
     }
 
     /**
@@ -500,6 +503,16 @@ class Database {
     public function last_id()
     {
         return $this->lastIDInserted;
+    }
+
+    /**
+     * PDO lastInsertId
+     *
+     * @return string
+     */
+    public function lastInsertId()
+    {
+        return $this->db->lastInsertId();
     }
 
     /**
@@ -1100,14 +1113,14 @@ class Database {
             // Limit and offset
             switch ($driver) {
                 case 'mysql':
-                    $this->limit = " LIMIT $limit, $end";
+                    $this->limit = " LIMIT $end, $limit";
                     break;
                 case 'pgsql':
                 case 'sqlite':
-                    $this->limit = " LIMIT $end OFFSET $limit";
+                    $this->limit = " LIMIT $limit OFFSET $end";
                     break;
                 case 'sqlsrv':
-                    $this->limit = " OFFSET $limit ROWS FETCH NEXT $end ROWS ONLY";
+                    $this->limit = " OFFSET $end ROWS FETCH NEXT $limit ROWS ONLY";
                     break;
             }
         }

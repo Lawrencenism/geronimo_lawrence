@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /
+    RewriteBase /LAVACRUD/geronimo_lawrence/
 
     # Send everything to index.php if it's not a real file or directory
     RewriteCond %{REQUEST_FILENAME} !-f
