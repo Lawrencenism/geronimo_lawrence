@@ -209,7 +209,7 @@ $config['language'] 				= 'en-US';
 |
 |--------------------------------------------------------------------------
 */
-$config['sess_driver']             = 'file';
+$config['sess_driver']             = 'native';
 $config['sess_cookie_name']        = 'LLSession';
 $config['sess_expiration']         = 7200;
 $config['sess_save_path']          = '/tmp';
